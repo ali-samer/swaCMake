@@ -1,4 +1,4 @@
-function(set_policies)
+function(swa_set_policies)
     set(options)
     set(one_value_args DEFAULT_STATE)
     set(multi_value_args)
