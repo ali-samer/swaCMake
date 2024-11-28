@@ -17,7 +17,7 @@ function(swa_set_policies)
 
     if(NOT ARGS_DEFAULT_STATE)
         set(ARGS_DEFAULT_STATE NEW)
-    elseif (ARGS_DEFAULT_STATE NOT STREQUAL "OLD")
+    elseif(NOT ARGS_DEFAULT_STATE STREQUAL "OLD" AND NOT ARGS_DEFAULT_STATE STREQUAL "NEW")
         message(FATAL_ERROR "Unknown DEFAULT_STATE value: ${ARGS_DEFAULT_STATE}")
     endif()
 
@@ -53,7 +53,6 @@ function(swa_set_policies)
         endif()
 
         if(POLICY "${_policy_upper}")
-            message(STATUS "Setting policy ${_policy_upper} to ${_state}")
             cmake_policy(SET "${_policy_upper}" "${_state}")
         else()
             message(WARNING "Policy ${_policy_upper} does not exist or is not recognized")
