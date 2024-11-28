@@ -1,7 +1,7 @@
 # @swaVersionNumbers.cmake
 
 # ----------------------------------------------------------------------------
-## Extract version numbers from version string with prefix suffix support
+## Extract version numbers from version string with pre-release suffix support
 ## Example:
 ## swa_version_numbers(
 ##      ${PACKAGE_VERSION}
@@ -9,10 +9,10 @@
 ##      PACKAGE_VERSION_MINOR
 ##      PACKAGE_VERSION_PATCH)
 ##
-## NOTE: PACKAGE_VERSION could be something line 1.0.0rc1 where rc is the
+## NOTE: PACKAGE_VERSION could be something line 1.0.0-rc1 where rc is the
 ##       release candidate
-function (swa_version_numbers version major minor patch)
-    if (version MATCHES "([0-9]+)(\\.[0-9]+)?(\\.[0-9]+)?(rc[1-9][0-9]*|[a-z]+)?")
+function (swa_version_numbers version major minor patch) # TODO: test regex pattern
+    if (version MATCHES "^([0-9]+)(?:\.([0-9]+))?(?:\.([0-9]+))?(-?(alpha|beta|rc|dev|snapshot|preview|[a-z]+)([0-9]+)?)?$")
         if (CMAKE_MATCH_1)
             set (_major ${CMAKE_MATCH_1})
         else ()
