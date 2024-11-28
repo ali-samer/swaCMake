@@ -1,3 +1,14 @@
+# @swaSetPolicies.cmake
+
+# ----------------------------------------------------------------------------
+## Checks and sets specified cmake policies
+## Example:
+## swa_set_policies(DEFAULT_STATE OLD
+##      CMP0083 NEW
+##      CMP0079
+##      CMP0077 OLD)
+##
+## NOTE: DEFAULT_STATE is set as `NEW` by default
 function(swa_set_policies)
     set(options)
     set(one_value_args DEFAULT_STATE)
@@ -6,6 +17,8 @@ function(swa_set_policies)
 
     if(NOT ARGS_DEFAULT_STATE)
         set(ARGS_DEFAULT_STATE NEW)
+    elseif (ARGS_DEFAULT_STATE NOT STREQUAL "OLD")
+        message(FATAL_ERROR "Unknown DEFAULT_STATE value: ${ARGS_DEFAULT_STATE}")
     endif()
 
     set(_policy_args "${ARGS_UNPARSED_ARGUMENTS}")
